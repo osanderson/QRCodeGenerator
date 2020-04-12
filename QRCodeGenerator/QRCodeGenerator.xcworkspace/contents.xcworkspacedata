@@ -4,4 +4,10 @@
    <FileRef
       location = "container:QRCodeGenerator.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:QRCodeGenerator.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>
