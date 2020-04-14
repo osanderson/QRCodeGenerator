@@ -38,7 +38,7 @@
     // https://www.freeflagicons.com/country/singapore/square_metal_framed_icon/download/
     UIImage *tmpLogo
     = [UIImage imageNamed:@"sampleLogo"];
-    CGFloat  tmpLogoPc = 10.0;
+    CGFloat  tmpLogoPc = 12.0;
 
     UIImage *tmpImg = [UIImage QRCodeGenerator:tmpUrl
                                          andEC:eOSQRENCODE_EC_QUARTILE

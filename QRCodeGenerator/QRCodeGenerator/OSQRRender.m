@@ -424,7 +424,7 @@
     NSInteger logQrSize = _quietZone + [iQr width] + _quietZone;
  
     // determine scaling amount from logical to physical size
-    CGFloat scale = _size / logQrSize;
+    CGFloat scale = floorf(_size / logQrSize);
     if ( scale < 1.0 )
         scale = 1.0;
     
