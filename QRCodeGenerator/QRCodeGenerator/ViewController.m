@@ -36,9 +36,12 @@
     
     // NB logo image (SG flag) taken from:
     // https://www.freeflagicons.com/country/singapore/square_metal_framed_icon/download/
-    UIImage *tmpLogo = [UIImage imageNamed:@"sampleLogo"];
+    UIImage *tmpLogo
+    = [UIImage imageNamed:@"sampleLogo"];
+    CGFloat  tmpLogoPc = 10.0;
 
     UIImage *tmpImg = [UIImage QRCodeGenerator:tmpUrl
+                                         andEC:eOSQRENCODE_EC_QUARTILE
                                   andStyleData:[[OSQRDataStyleRounded alloc] init]
                                 andStyleFinder:[[OSQRFinderStyleRoundedOuter alloc] init]
                                 andLightColour:[UIColor whiteColor]
@@ -46,7 +49,8 @@
                            andDarkColourFinder:[UIColor blackColor]
                                   andQuietZone:1
                                        andSize:targetSize
-                                       andLogo:tmpLogo];
+                                       andLogo:tmpLogo
+                                     andLogoPc:tmpLogoPc];
 
     [imgView setImage:tmpImg];
 }

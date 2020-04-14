@@ -36,6 +36,7 @@
 
 
 + (UIImage*)QRCodeGenerator:(NSString*)iData
+                      andEC:(enum eOSQRENCODE_EC)iEC
                andStyleData:(nullable NSObject<OSQRDataStyle>*)_iStyleData
              andStyleFinder:(nullable NSObject<OSQRFinderStyle>*)_iStyleFinder
              andLightColour:(UIColor*)iLightColour
@@ -44,12 +45,11 @@
                andQuietZone:(NSInteger)iQuietZone
                     andSize:(CGFloat)iSize
                     andLogo:(nullable UIImage*)_iLogo
+                  andLogoPc:(CGFloat)iLogoPc
 {
     UIImage *ret = nil;
-
-    // TODO - allow caller to pass in EC/logo-pc?
     
-    OSQREncode *qr = [OSQREncode encodeString:iData andEC:eOSQRENCODE_EC_QUARTILE];
+    OSQREncode *qr = [OSQREncode encodeString:iData andEC:iEC];
     
     OSQRRender *render = [[OSQRRender alloc] init];
     
@@ -67,8 +67,8 @@
     if ( _iStyleFinder )
         [render setFinderStyle:_iStyleFinder];
     
-    if ( _iLogo )
-        [render setLogo:_iLogo andSizePc:12.0];
+    if ( _iLogo && (iLogoPc > 0.0) )
+        [render setLogo:_iLogo andSizePc:iLogoPc];
 
     ret = [render generateImage:qr];
     

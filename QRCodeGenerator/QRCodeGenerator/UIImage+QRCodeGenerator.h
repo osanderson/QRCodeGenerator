@@ -43,14 +43,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 // NB UIImage returned may be slightly smaller than the request size
 + (UIImage*)QRCodeGenerator:(NSString*)iData
-       andStyleData:(nullable NSObject<OSQRDataStyle>*)_iStyleData
-     andStyleFinder:(nullable NSObject<OSQRFinderStyle>*)_iStyleFinder
-     andLightColour:(UIColor*)iLightColour
-  andDarkColourData:(UIColor*)iDarkColourData
-andDarkColourFinder:(UIColor*)iDarkColourFinder
-       andQuietZone:(NSInteger)iQuietZone
-            andSize:(CGFloat)iSize
-                    andLogo:(nullable UIImage*)_iLogo;
+                      andEC:(enum eOSQRENCODE_EC)iEC
+               andStyleData:(nullable NSObject<OSQRDataStyle>*)_iStyleData
+             andStyleFinder:(nullable NSObject<OSQRFinderStyle>*)_iStyleFinder
+             andLightColour:(UIColor*)iLightColour
+          andDarkColourData:(UIColor*)iDarkColourData
+        andDarkColourFinder:(UIColor*)iDarkColourFinder
+               andQuietZone:(NSInteger)iQuietZone
+                    andSize:(CGFloat)iSize
+                    andLogo:(nullable UIImage*)_iLogo
+                  andLogoPc:(CGFloat)iLogoPc;
+
 
 
 
