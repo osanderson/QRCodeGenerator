@@ -194,6 +194,7 @@
             }
         } // for-each(idx)
         
+        // handle error case where we encountered an invalid finder pattern
         if ( validFinders == NO )
         {
             // reset the finder rects to signal an error
@@ -373,10 +374,12 @@
         _logoSizePc = iSizePc;
 }
 
-
--(void)unsetPixelsWithinRect:(OSQREncode*)iQr
-                     andRect:(CGRect)iRect
-                    andScale:(CGFloat)iScale
+/*
+ * unsets any pixels that intersect with rect
+ */
+-(void)unsetPixelsIntersectingRect:(OSQREncode*)iQr
+                           andRect:(CGRect)iRect
+                          andScale:(CGFloat)iScale
 {
     for ( NSInteger idx=0 ; idx<[iQr area] ; idx++ )
     {
@@ -438,7 +441,7 @@
             
             // unset any pixels that will be occupied by the logo
             if ( CGRectIsNull(logoRect) == NO )
-                [self unsetPixelsWithinRect:iQr andRect:logoRect andScale:scale];
+                [self unsetPixelsIntersectingRect:iQr andRect:logoRect andScale:scale];
         }
 
         /*
@@ -479,9 +482,7 @@
          * verify that we correctly identified the finders
          * NB we only evaluate the OUTER rect of each as this is sufficient
          */
-        if ( CGRectIsNull(finderTL_outer) ||
-             CGRectIsNull(finderTR_outer) ||
-             CGRectIsNull(finderBL_outer) )
+        if ( CGRectIsNull(finderTL_outer) || CGRectIsNull(finderTR_outer) || CGRectIsNull(finderBL_outer) )
         {
             haveError = YES;
         }
@@ -490,9 +491,9 @@
         {
             // unset any pixels that are occupied by the 3 finder patterns (as we want to custom draw)
             // NB we only do for the 'outer' regions as middle/inner are within outer
-            [self unsetPixelsWithinRect:iQr andRect:finderTL_outer andScale:scale];
-            [self unsetPixelsWithinRect:iQr andRect:finderTR_outer andScale:scale];
-            [self unsetPixelsWithinRect:iQr andRect:finderBL_outer andScale:scale];
+            [self unsetPixelsIntersectingRect:iQr andRect:finderTL_outer andScale:scale];
+            [self unsetPixelsIntersectingRect:iQr andRect:finderTR_outer andScale:scale];
+            [self unsetPixelsIntersectingRect:iQr andRect:finderBL_outer andScale:scale];
         }
 
         /*
