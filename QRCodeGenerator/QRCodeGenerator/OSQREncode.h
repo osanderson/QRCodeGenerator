@@ -53,13 +53,27 @@ enum eOSQRENCODE_EC
 
 @interface OSQREncode : NSObject
 
+/*
+ * encodes the data with the desired error-correction(EC) level
+ */
 +(OSQREncode*)encodeString:(NSString*)iData
                      andEC:(enum eOSQRENCODE_EC)iEC;
 
-
+/*
+ * indicates the width of the QR (excluding quiet-zone)
+ */
 -(NSInteger)width;
--(NSInteger)height; // height should equal width under normal conditions
--(NSInteger)area; // i.e. width * height
+
+/*
+ * indicates the height of the QR (excluding quiet-zone)
+ * - included for clarity as height=width for QR codes
+  */
+-(NSInteger)height;
+
+/*
+ * indicates the area of the QR (i.e. width * height)
+ */
+-(NSInteger)area;
 
 
 -(BOOL)isFinderPixel:(NSInteger)iIdx;
@@ -75,8 +89,19 @@ enum eOSQRENCODE_EC
                 andOffsetY:(NSInteger)iOffsetY;
 
 
+/*
+ * determines the top-left index of the (top-left) finder
+ */
 -(NSInteger)getFinderTLIdx_TL;
+
+/*
+* determines the top-left index of the (top-right) finder
+*/
 -(NSInteger)getFinderTLIdx_TR;
+
+/*
+* determines the top-left index of the (bottom-left) finder
+*/
 -(NSInteger)getFinderTLIdx_BL;
 
 @end
