@@ -35,9 +35,7 @@
  * constants for libqrencode pixel bitmasks
  */
 #define kLIBQRENCODE_PIXEL_BITMASK_BLACK    1
-#define kLIBQRENCODE_PIXEL_BITMASK_FINDER   64
-
-
+//#define kLIBQRENCODE_PIXEL_BITMASK_FINDER   64
 
 
 @interface OSQREncode ()
@@ -48,8 +46,6 @@
 @property (nonatomic,assign) QRcode *qr;
 
 @end
-
-
 
 
 @implementation OSQREncode
@@ -109,9 +105,6 @@
 }
 
 
-
-
-
 -(NSInteger)width
 {
     // sanity check
@@ -132,12 +125,6 @@
     return [self width] * [self height];
 }
 
-
-
-
-
-
-
 -(BOOL)isValidIdx:(NSInteger)iIdx
 {
     BOOL ret = NO;
@@ -155,48 +142,44 @@
 }
 
 
-
-
-
-
--(BOOL)isFinderPixel:(NSInteger)iIdx
+-(BOOL)isSet:(NSInteger)iIdx
 {
     BOOL ret = NO;
 
     if ( [self isValidIdx:iIdx] )
     {
-        unsigned char value = _qr->data[iIdx];
-            
-        if ( (value & kLIBQRENCODE_PIXEL_BITMASK_FINDER) )
+        if ( _qr->data[iIdx] & kLIBQRENCODE_PIXEL_BITMASK_BLACK )
+        {
             ret = YES;
+        }
     }
 
     return ret;
 }
 
--(BOOL)isDataPixel:(NSInteger)iIdx
-{
-    return [self isFinderPixel:iIdx] ? NO : YES;
-}
-
--(BOOL)isSetPixel:(NSInteger)iIdx
+-(BOOL)isUnset:(NSInteger)iIdx
 {
     BOOL ret = NO;
-    
+
     if ( [self isValidIdx:iIdx] )
     {
-        unsigned char value = _qr->data[iIdx];
-
-        if ( value & kLIBQRENCODE_PIXEL_BITMASK_BLACK )
+        if ( !(_qr->data[iIdx] & kLIBQRENCODE_PIXEL_BITMASK_BLACK) )
+        {
             ret = YES;
+        }
     }
-        
+
     return ret;
 }
 
--(BOOL)isSetDataPixel:(NSInteger)iIdx
+
+// unsets the pixel
+-(void)unset:(NSInteger)iIdx
 {
-    return [self isSetPixel:iIdx] && [self isDataPixel:iIdx];
+    if ( [self isValidIdx:iIdx] )
+    {
+        _qr->data[iIdx] = 0;;
+    }
 }
 
 

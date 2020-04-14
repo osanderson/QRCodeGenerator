@@ -75,14 +75,21 @@ enum eOSQRENCODE_EC
  */
 -(NSInteger)area;
 
+/*
+ * returns: YES if pixel is SET
+ */
+-(BOOL)isSet:(NSInteger)iIdx;
 
--(BOOL)isFinderPixel:(NSInteger)iIdx;
+/*
+* returns: YES if pixel is UNSET
+*/
+-(BOOL)isUnset:(NSInteger)iIdx;
 
--(BOOL)isDataPixel:(NSInteger)iIdx;
+/*
+* unsets the pixel
+*/
+-(void)unset:(NSInteger)iIdx;
 
--(BOOL)isSetPixel:(NSInteger)iIdx;
-
--(BOOL)isSetDataPixel:(NSInteger)iIdx;
 
 -(NSInteger)getIdxByOffset:(NSInteger)iIdx
                 andOffsetX:(NSInteger)iOffsetX

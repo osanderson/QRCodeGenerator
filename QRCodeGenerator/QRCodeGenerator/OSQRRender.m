@@ -116,15 +116,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
 -(CGRect)getRectForIdx:(OSQREncode*)iQr
                 andIdx:(NSInteger)iIdx
               andScale:(CGFloat)iScale
@@ -139,23 +130,7 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// outputs: CGRectNull if an error occurs (i.e. invalid finder pattern encountered)
 -(void)getFinderRects:(OSQREncode*)iQr
              andIdxTL:(NSInteger)iIdxTL
              andScale:(CGFloat)iScale
@@ -163,9 +138,6 @@
         andMiddleRect:(CGRect*)oMiddleRect
          andInnerRect:(CGRect*)oInnerRect
 {
-    // TODO - may not work with all types of QR... would ideally verify that finder shape is as expected and only draw custom in that case
-    //          - will need to handle exception case as we may have skipped drawing the finder using normal style
-    
     /*
      *      @@@@@@@
      *      @     @
@@ -178,15 +150,13 @@
     
     NSInteger outerIdx_tl = iIdxTL;
     NSInteger outerIdx_br = [iQr getIdxByOffset:outerIdx_tl andOffsetX:6 andOffsetY:6];
-    
+
     NSInteger midIdx_tl = [iQr getIdxByOffset:outerIdx_tl andOffsetX:1 andOffsetY:1];
     NSInteger midIdx_br = [iQr getIdxByOffset:outerIdx_br andOffsetX:-1 andOffsetY:-1];
 
     NSInteger innerIdx_tl = [iQr getIdxByOffset:midIdx_tl andOffsetX:1 andOffsetY:1];
     NSInteger innerIdx_br = [iQr getIdxByOffset:midIdx_br andOffsetX:-1 andOffsetY:-1];
 
-    
-    
     *oOuterRect = CGRectUnion([self getRectForIdx:iQr andIdx:outerIdx_tl andScale:iScale],
                               [self getRectForIdx:iQr andIdx:outerIdx_br andScale:iScale]);
 
@@ -195,12 +165,51 @@
 
     *oInnerRect = CGRectUnion([self getRectForIdx:iQr andIdx:innerIdx_tl andScale:iScale],
                               [self getRectForIdx:iQr andIdx:innerIdx_br andScale:iScale]);
+
+    /*
+     * verify that the pixels within the finder rects are as expected
+     */
+    {
+        BOOL validFinders = YES;
+        
+        for ( NSInteger idx=0 ; idx<[iQr area] && validFinders ; idx++ )
+        {
+            CGRect tmpRect = [self getRectForIdx:iQr andIdx:idx andScale:iScale];
+            
+            // evaluate if pixel if within the OUTER rect of the finder
+            if ( CGRectIntersectsRect(tmpRect,*oOuterRect) )
+            {
+                // validation rules for all pixels within OUTER:
+                //  1) if within INNER then must be SET
+                //  2) if within MIDDLE and not within INNER then must be UNSET
+                //  3) if within OUTER and not within MIDDLE then must be SET
+                
+                if ( !((CGRectIntersectsRect(tmpRect,*oInnerRect) && [iQr isSet:idx]) ||
+                       (CGRectIntersectsRect(tmpRect,*oMiddleRect) && !CGRectIntersectsRect(tmpRect,*oInnerRect) && [iQr isUnset:idx]) ||
+                       (CGRectIntersectsRect(tmpRect,*oOuterRect) && !CGRectIntersectsRect(tmpRect,*oMiddleRect) && [iQr isSet:idx])) )
+                {
+                    // pixel doesn't comply with expected finder pattern rules
+                    validFinders = NO;
+                }
+            }
+        } // for-each(idx)
+        
+        if ( validFinders == NO )
+        {
+            // reset the finder rects to signal an error
+            *oOuterRect  = CGRectNull;
+            *oMiddleRect = CGRectNull;
+            *oInnerRect  = CGRectNull;
+        }
+    }
 }
 
 /******************************************************************************/
 
-// NB aspect = width / height
-// returns: maximum logical size that honours the aspect and fits the area
+/*
+ * NB aspect = width / height
+ * returns: maximum logical size that honours the aspect and fits the area
+ */
 -(CGSize)getMaxLogSizeForAspectAndArea:(CGFloat)iAspect
                               andScale:(CGFloat)iScale
                          andMaxLogArea:(CGFloat)iMaxLogArea
@@ -232,12 +241,6 @@
 }
 
 
-
-
-
-// TODO - could we use an intellegent approach where we draw data pixel if it doesn't overlap with logo... ie pixel block !light..
-//          ... would need to sample what is already drawn in the pixels
-
 // returns: CGRect indicating where logo has been drawn
 -(CGRect)drawLogo:(OSQRCanvas*)iCanvas andQr:(OSQREncode*)iQr andScale:(CGFloat)iScale
 {
@@ -260,11 +263,23 @@
     CGSize logLogoSize = CGSizeZero;
     {
         CGFloat logoAspect = _logo.size.width / _logo.size.height;
-        CGFloat maxLogArea = [iQr area] * (_logoSizePc / 100.0); 
+        
+        /*
+         * determine the maximum logical area for the logo based on the target logo size (%)
+         * NB we exclude the 3 finders and the whitespace next to them from the usable area [(]i.e. 3*(8*8)]
+         */
+        CGFloat maxLogArea = ([iQr area] - (3*kOSQRENCODE_FINDER_PATTERN_WIDTH*kOSQRENCODE_FINDER_PATTERN_WIDTH)) * (_logoSizePc / 100.0);
 
+        /*
+         * determine the maximum logical width/height that we will allow for the logo
+         */
         CGFloat maxLogWidth  = [iQr width ] - kOSQRENCODE_FINDER_PATTERN_WIDTH - 1 - 1 - kOSQRENCODE_FINDER_PATTERN_WIDTH;
         CGFloat maxLogHeight = [iQr height] - kOSQRENCODE_FINDER_PATTERN_WIDTH - 1 - 1 - kOSQRENCODE_FINDER_PATTERN_WIDTH;
         
+        /*
+         * calculate the maximum logical size that the logo can occupy, honouring the area/width/height constraints
+         * as well as preserving the aspect ratio of the original logo
+         */
         logLogoSize = [self getMaxLogSizeForAspectAndArea:logoAspect
                                                  andScale:iScale
                                             andMaxLogArea:maxLogArea
@@ -298,7 +313,6 @@
         retLogoRect = CGRectUnion([self getRectForIdx:iQr andIdx:tmpIdx_TL andScale:iScale],
                                   [self getRectForIdx:iQr andIdx:tmpIdx_BR andScale:iScale]);
 
-        // TODO - remove NSLog (and others)
         NSLog(@"[oLogoRect] x:%1.1f, y:%1.1f, w:%1.1f, h:%1.1f",retLogoRect.origin.x,retLogoRect.origin.y,retLogoRect.size.width,retLogoRect.size.height);
     }
     
@@ -318,55 +332,6 @@
     
     return retLogoRect;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -(void)setSize:(CGFloat)iSize
@@ -409,13 +374,31 @@
 }
 
 
+-(void)unsetPixelsWithinRect:(OSQREncode*)iQr
+                     andRect:(CGRect)iRect
+                    andScale:(CGFloat)iScale
+{
+    for ( NSInteger idx=0 ; idx<[iQr area] ; idx++ )
+    {
+        if ( [iQr isSet:idx] )
+        {
+            CGRect tmpRect = [self getRectForIdx:iQr andIdx:idx andScale:iScale];
 
+            if ( YES == CGRectIntersectsRect(tmpRect,iRect) )
+            {
+                [iQr unset:idx];
+            }
+        } // end-if(isSetPixel)
+    }// end-for(idx)
+}
 
-
-
+/*
+ * returns: UIImage for QRCode *OR* nil if an error occurred (e.g. invalid finder pattern encountered)
+ */
 -(UIImage*)generateImage:(OSQREncode*)iQr
 {
-    UIImage *ret = nil;
+    BOOL     haveError = NO;
+    UIImage *ret       = nil;
     
     // TODO - should really top/left align the image if it's going to be slightly smaller than what the user requested
     //          - otherwise we return a slightly smaller size and the image may get stretched by the caller
@@ -430,8 +413,6 @@
     
     // physical size in drawing units
     CGFloat phyQrSize = logQrSize * scale;
-
-    CGRect logoRect = CGRectNull;
         
     // generate the image
     {
@@ -448,11 +429,16 @@
         /*
          * draw logo (if provided)
          */
+        CGRect logoRect = CGRectNull;
         if ( _logo )
         {
             logoRect = [self drawLogo:canvas
                                 andQr:iQr
                              andScale:scale];
+            
+            // unset any pixels that will be occupied by the logo
+            if ( CGRectIsNull(logoRect) == NO )
+                [self unsetPixelsWithinRect:iQr andRect:logoRect andScale:scale];
         }
 
         /*
@@ -490,30 +476,41 @@
                 andInnerRect:&finderBL_inner];
 
         /*
-         * draw any DARK pixels that do NOT intersect with the logo or the finders
+         * verify that we correctly identified the finders
+         * NB we only evaluate the OUTER rect of each as this is sufficient
          */
+        if ( CGRectIsNull(finderTL_outer) ||
+             CGRectIsNull(finderTR_outer) ||
+             CGRectIsNull(finderBL_outer) )
         {
-            NSInteger idx;
-                
-            for ( idx=0 ; idx<([iQr area]) ; idx++ )
+            haveError = YES;
+        }
+        
+        if ( !haveError )
+        {
+            // unset any pixels that are occupied by the 3 finder patterns (as we want to custom draw)
+            // NB we only do for the 'outer' regions as middle/inner are within outer
+            [self unsetPixelsWithinRect:iQr andRect:finderTL_outer andScale:scale];
+            [self unsetPixelsWithinRect:iQr andRect:finderTR_outer andScale:scale];
+            [self unsetPixelsWithinRect:iQr andRect:finderBL_outer andScale:scale];
+        }
+
+        /*
+         * draw any SET pixels
+         * NB we've already UNSET any pixels that will be occupied by the logo/finders
+         */
+        if ( !haveError )
+        {
+            for ( NSInteger idx=0 ; idx<([iQr area]) ; idx++ )
             {
-                if ( [iQr isSetPixel:idx] )
+                if ( [iQr isSet:idx] )
                 {
                     CGRect tmpRect = [self getRectForIdx:iQr andIdx:idx andScale:scale];
 
-                    // NB only need to evaluate 'outer' finder rect (as middle/inner are within outer)
-                    // TODO - may be a bit cleaner to UNSET these rects.. as rounded data drawing will
-                    //        have to exclude manually and doesn't currently have
-                    if ( (NO == CGRectIntersectsRect(tmpRect,logoRect      )) &&
-                         (NO == CGRectIntersectsRect(tmpRect,finderTL_outer)) &&
-                         (NO == CGRectIntersectsRect(tmpRect,finderTR_outer)) &&
-                         (NO == CGRectIntersectsRect(tmpRect,finderBL_outer)) )
-                    {
-                        [_dataStyle drawPixel:canvas
-                                    andColour:_darkColourData
-                                        andQr:iQr andIdx:idx
-                                      andRect:tmpRect];
-                    }
+                    [_dataStyle drawPixel:canvas
+                                andColour:_darkColourData
+                                    andQr:iQr andIdx:idx
+                                  andRect:tmpRect];
                 }
             } // end-for (idx)
         }
@@ -521,6 +518,7 @@
         /*
          * draw finders
          */
+        if ( !haveError )
         {
             [_finderStyle drawFinderTL:canvas
                         andLightColour:_lightColour
@@ -547,8 +545,11 @@
         /*
          * generate the UIImage
          */
-        ret = [canvas generateImage];
-        
+        if ( !haveError )
+        {
+            ret = [canvas generateImage];
+        }
+
         canvas = nil;
     }
     

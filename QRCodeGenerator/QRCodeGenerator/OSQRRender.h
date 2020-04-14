@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setLogo:(UIImage*)iLogo
      andSizePc:(CGFloat)iSizePc;
 
+/*
+* returns: UIImage for QRCode *OR* nil if an error occurred (e.g. invalid finder pattern encountered)
+*/
 -(UIImage*)generateImage:(OSQREncode*)iQr;
 
 @end

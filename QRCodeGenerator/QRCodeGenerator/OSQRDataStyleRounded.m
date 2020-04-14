@@ -46,24 +46,20 @@ andColour:(UIColor*)iColour
     NSInteger idx_R  = [iQr getIdxByOffset:iIdx andOffsetX: 1 andOffsetY: 0];
     NSInteger idx_B  = [iQr getIdxByOffset:iIdx andOffsetX: 0 andOffsetY: 1];
 
-    // TODO - these should consider reserved logo pixels as being different... so we get a nice rounding around the logo itself
-    //          - not sure what is the best way to do this... either add extra constraint below... or override raw data so they don't get drawn
-    //          *** unsetting the pixel may be a more scalable way of dealing with this
-    
     // top-left corner
-    if ( (NO == [iQr isSetDataPixel:idx_L]) && (NO == [iQr isSetDataPixel:idx_T]) )
+    if ( (NO == [iQr isSet:idx_L]) && (NO == [iQr isSet:idx_T]) )
         roundedCorners |= UIRectCornerTopLeft;
 
     // top-right corner
-    if ( (NO == [iQr isSetDataPixel:idx_T]) && (NO == [iQr isSetDataPixel:idx_R]) )
+    if ( (NO == [iQr isSet:idx_T]) && (NO == [iQr isSet:idx_R]) )
         roundedCorners |= UIRectCornerTopRight;
 
     // bottom-right corner
-    if ( (NO == [iQr isSetDataPixel:idx_R]) && (NO == [iQr isSetDataPixel:idx_B]) )
+    if ( (NO == [iQr isSet:idx_R]) && (NO == [iQr isSet:idx_B]) )
         roundedCorners |= UIRectCornerBottomRight;
 
     // bottom-left corner
-    if ( (NO == [iQr isSetDataPixel:idx_B]) && (NO == [iQr isSetDataPixel:idx_L]) )
+    if ( (NO == [iQr isSet:idx_B]) && (NO == [iQr isSet:idx_L]) )
         roundedCorners |= UIRectCornerBottomLeft;
 
     CGFloat tmpCornerRadius = fminf(iRect.size.width,iRect.size.height) / 2.0;
