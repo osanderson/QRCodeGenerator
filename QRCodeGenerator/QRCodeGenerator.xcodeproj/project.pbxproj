@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,24 @@
 		552E7FE12443423100A71E09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E7FE02443423100A71E09 /* main.m */; };
 		552E7FEB2443423100A71E09 /* QRCodeGeneratorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E7FEA2443423100A71E09 /* QRCodeGeneratorTests.m */; };
 		552E7FF62443423100A71E09 /* QRCodeGeneratorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E7FF52443423100A71E09 /* QRCodeGeneratorUITests.m */; };
+		55A3DF9D2444A74300F98532 /* OSQRDataStyleDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DF9C2444A74300F98532 /* OSQRDataStyleDefault.m */; };
+		55A3DF9E2444A74300F98532 /* OSQRDataStyleDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DF9C2444A74300F98532 /* OSQRDataStyleDefault.m */; };
+		55A3DFA12444A93F00F98532 /* OSQRDataStyleRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA02444A93F00F98532 /* OSQRDataStyleRounded.m */; };
+		55A3DFA22444A93F00F98532 /* OSQRDataStyleRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA02444A93F00F98532 /* OSQRDataStyleRounded.m */; };
+		55A3DFA52444A9C500F98532 /* OSQRDataStyleDots.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA42444A9C500F98532 /* OSQRDataStyleDots.m */; };
+		55A3DFA62444A9C500F98532 /* OSQRDataStyleDots.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA42444A9C500F98532 /* OSQRDataStyleDots.m */; };
+		55A3DFA92444AC4600F98532 /* OSQRCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA82444AC4600F98532 /* OSQRCanvas.m */; };
+		55A3DFAA2444AC4600F98532 /* OSQRCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFA82444AC4600F98532 /* OSQRCanvas.m */; };
+		55A3DFAE2444C9DF00F98532 /* OSQRFinderStyleDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFAD2444C9DF00F98532 /* OSQRFinderStyleDefault.m */; };
+		55A3DFAF2444C9DF00F98532 /* OSQRFinderStyleDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFAD2444C9DF00F98532 /* OSQRFinderStyleDefault.m */; };
+		55A3DFB62444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFB52444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m */; };
+		55A3DFB72444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3DFB52444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m */; };
+		55BC0CFF2443DBEC0048E37F /* UIImage+QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BC0CFE2443DBEC0048E37F /* UIImage+QRCodeGenerator.m */; };
+		55BC0D002443DBEC0048E37F /* UIImage+QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BC0CFE2443DBEC0048E37F /* UIImage+QRCodeGenerator.m */; };
+		55C9B37A2443518900DC52BD /* OSQREncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9B3792443518900DC52BD /* OSQREncode.m */; };
+		55C9B37B2443518900DC52BD /* OSQREncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9B3792443518900DC52BD /* OSQREncode.m */; };
+		55C9B37E244351C100DC52BD /* OSQRRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9B37D244351C100DC52BD /* OSQRRender.m */; };
+		55C9B37F244351C100DC52BD /* OSQRRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9B37D244351C100DC52BD /* OSQRRender.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +73,26 @@
 		552E7FF12443423100A71E09 /* QRCodeGeneratorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRCodeGeneratorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		552E7FF52443423100A71E09 /* QRCodeGeneratorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeGeneratorUITests.m; sourceTree = "<group>"; };
 		552E7FF72443423100A71E09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55A3DF9A2444A6D200F98532 /* OSQRDataStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRDataStyle.h; sourceTree = "<group>"; };
+		55A3DF9B2444A74300F98532 /* OSQRDataStyleDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRDataStyleDefault.h; sourceTree = "<group>"; };
+		55A3DF9C2444A74300F98532 /* OSQRDataStyleDefault.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRDataStyleDefault.m; sourceTree = "<group>"; };
+		55A3DF9F2444A93F00F98532 /* OSQRDataStyleRounded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRDataStyleRounded.h; sourceTree = "<group>"; };
+		55A3DFA02444A93F00F98532 /* OSQRDataStyleRounded.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRDataStyleRounded.m; sourceTree = "<group>"; };
+		55A3DFA32444A9C500F98532 /* OSQRDataStyleDots.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRDataStyleDots.h; sourceTree = "<group>"; };
+		55A3DFA42444A9C500F98532 /* OSQRDataStyleDots.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRDataStyleDots.m; sourceTree = "<group>"; };
+		55A3DFA72444AC4600F98532 /* OSQRCanvas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRCanvas.h; sourceTree = "<group>"; };
+		55A3DFA82444AC4600F98532 /* OSQRCanvas.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRCanvas.m; sourceTree = "<group>"; };
+		55A3DFAB2444C8E300F98532 /* OSQRFinderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRFinderStyle.h; sourceTree = "<group>"; };
+		55A3DFAC2444C9DF00F98532 /* OSQRFinderStyleDefault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRFinderStyleDefault.h; sourceTree = "<group>"; };
+		55A3DFAD2444C9DF00F98532 /* OSQRFinderStyleDefault.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRFinderStyleDefault.m; sourceTree = "<group>"; };
+		55A3DFB42444CA3900F98532 /* OSQRFinderStyleRoundedOuter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRFinderStyleRoundedOuter.h; sourceTree = "<group>"; };
+		55A3DFB52444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRFinderStyleRoundedOuter.m; sourceTree = "<group>"; };
+		55BC0CFD2443DBEC0048E37F /* UIImage+QRCodeGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCodeGenerator.h"; sourceTree = "<group>"; };
+		55BC0CFE2443DBEC0048E37F /* UIImage+QRCodeGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCodeGenerator.m"; sourceTree = "<group>"; };
+		55C9B3782443518900DC52BD /* OSQREncode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQREncode.h; sourceTree = "<group>"; };
+		55C9B3792443518900DC52BD /* OSQREncode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQREncode.m; sourceTree = "<group>"; };
+		55C9B37C244351C100DC52BD /* OSQRRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSQRRender.h; sourceTree = "<group>"; };
+		55C9B37D244351C100DC52BD /* OSQRRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSQRRender.m; sourceTree = "<group>"; };
 		ADA4412004D3BB8C0835E012 /* Pods_QRCodeGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QRCodeGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00D057B497DF819564EB105 /* Pods-QRCodeGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRCodeGenerator.release.xcconfig"; path = "Target Support Files/Pods-QRCodeGenerator/Pods-QRCodeGenerator.release.xcconfig"; sourceTree = "<group>"; };
 		FB3C0C6F679328F1BEE7EAA0 /* Pods-QRCodeGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRCodeGenerator.debug.xcconfig"; path = "Target Support Files/Pods-QRCodeGenerator/Pods-QRCodeGenerator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,7 +138,6 @@
 				FB3C0C6F679328F1BEE7EAA0 /* Pods-QRCodeGenerator.debug.xcconfig */,
 				D00D057B497DF819564EB105 /* Pods-QRCodeGenerator.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -129,6 +166,26 @@
 		552E7FCD2443423000A71E09 /* QRCodeGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				55C9B3782443518900DC52BD /* OSQREncode.h */,
+				55C9B3792443518900DC52BD /* OSQREncode.m */,
+				55C9B37C244351C100DC52BD /* OSQRRender.h */,
+				55C9B37D244351C100DC52BD /* OSQRRender.m */,
+				55A3DFA72444AC4600F98532 /* OSQRCanvas.h */,
+				55A3DFA82444AC4600F98532 /* OSQRCanvas.m */,
+				55A3DF9A2444A6D200F98532 /* OSQRDataStyle.h */,
+				55A3DF9B2444A74300F98532 /* OSQRDataStyleDefault.h */,
+				55A3DF9C2444A74300F98532 /* OSQRDataStyleDefault.m */,
+				55A3DF9F2444A93F00F98532 /* OSQRDataStyleRounded.h */,
+				55A3DFA02444A93F00F98532 /* OSQRDataStyleRounded.m */,
+				55A3DFA32444A9C500F98532 /* OSQRDataStyleDots.h */,
+				55A3DFA42444A9C500F98532 /* OSQRDataStyleDots.m */,
+				55A3DFAB2444C8E300F98532 /* OSQRFinderStyle.h */,
+				55A3DFAC2444C9DF00F98532 /* OSQRFinderStyleDefault.h */,
+				55A3DFAD2444C9DF00F98532 /* OSQRFinderStyleDefault.m */,
+				55A3DFB42444CA3900F98532 /* OSQRFinderStyleRoundedOuter.h */,
+				55A3DFB52444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m */,
+				55BC0CFD2443DBEC0048E37F /* UIImage+QRCodeGenerator.h */,
+				55BC0CFE2443DBEC0048E37F /* UIImage+QRCodeGenerator.m */,
 				552E7FCE2443423000A71E09 /* AppDelegate.h */,
 				552E7FCF2443423000A71E09 /* AppDelegate.m */,
 				552E7FD12443423000A71E09 /* SceneDelegate.h */,
@@ -336,9 +393,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C9B37A2443518900DC52BD /* OSQREncode.m in Sources */,
+				55BC0CFF2443DBEC0048E37F /* UIImage+QRCodeGenerator.m in Sources */,
+				55A3DFA52444A9C500F98532 /* OSQRDataStyleDots.m in Sources */,
 				552E7FD62443423000A71E09 /* ViewController.m in Sources */,
 				552E7FD02443423000A71E09 /* AppDelegate.m in Sources */,
+				55A3DFA92444AC4600F98532 /* OSQRCanvas.m in Sources */,
+				55A3DFB62444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m in Sources */,
 				552E7FE12443423100A71E09 /* main.m in Sources */,
+				55C9B37E244351C100DC52BD /* OSQRRender.m in Sources */,
+				55A3DF9D2444A74300F98532 /* OSQRDataStyleDefault.m in Sources */,
+				55A3DFA12444A93F00F98532 /* OSQRDataStyleRounded.m in Sources */,
+				55A3DFAE2444C9DF00F98532 /* OSQRFinderStyleDefault.m in Sources */,
 				552E7FD32443423000A71E09 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +413,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55A3DFAA2444AC4600F98532 /* OSQRCanvas.m in Sources */,
+				55C9B37B2443518900DC52BD /* OSQREncode.m in Sources */,
+				55BC0D002443DBEC0048E37F /* UIImage+QRCodeGenerator.m in Sources */,
+				55A3DF9E2444A74300F98532 /* OSQRDataStyleDefault.m in Sources */,
+				55A3DFB72444CA3900F98532 /* OSQRFinderStyleRoundedOuter.m in Sources */,
+				55C9B37F244351C100DC52BD /* OSQRRender.m in Sources */,
+				55A3DFA22444A93F00F98532 /* OSQRDataStyleRounded.m in Sources */,
 				552E7FEB2443423100A71E09 /* QRCodeGeneratorTests.m in Sources */,
+				55A3DFAF2444C9DF00F98532 /* OSQRFinderStyleDefault.m in Sources */,
+				55A3DFA62444A9C500F98532 /* OSQRDataStyleDots.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
