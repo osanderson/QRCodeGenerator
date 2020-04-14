@@ -34,10 +34,10 @@
 @implementation OSQRDataStyleRounded
 
 -(void)drawPixel:(OSQRCanvas*)iCanvas
-andColour:(UIColor*)iColour
-    andQr:(OSQREncode*)iQr
-   andIdx:(NSInteger)iIdx
-  andRect:(CGRect)iRect
+       andColour:(UIColor*)iColour
+           andQr:(OSQREncode*)iQr
+          andIdx:(NSInteger)iIdx
+         andRect:(CGRect)iRect
 {
     UIRectCorner roundedCorners = 0;
     

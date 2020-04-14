@@ -142,9 +142,7 @@ andRoundedCornerRadius:(CGFloat)iRoundedCornerRadius
     CGContextTranslateCTM(_ctx,0,iRect.size.height);
     CGContextScaleCTM(_ctx, 1.0, -1.0);
 
-    CGImageRef imgRef = [iImage CGImage];
-    CGContextDrawImage(_ctx,iRect,imgRef);
-    CGImageRelease(imgRef);
+    CGContextDrawImage(_ctx,iRect,[iImage CGImage]);
     
     // undo changes to the context
     CGContextRestoreGState(_ctx);
